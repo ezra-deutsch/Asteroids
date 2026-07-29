@@ -18,14 +18,19 @@ def main():
 
     dt = 0.0
 
+    # Create sprite groups for updatable and drawable objects
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     # Game loop
     while True:
         log_state()
         screen.fill('black')  # Clear the screen with black before drawing each frame
-        player.draw(screen)     # Draw the player on the screen
-        player.update(dt)  # Update the player's state based on input and delta time
+        drawable.draw(screen)     # Draw all drawable objects on the screen
+        updatable.update(dt)  # Update the player's state based on input and delta time
 
 
         pygame.display.flip()  # Update the full display surface to the screen
