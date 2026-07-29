@@ -1,4 +1,5 @@
 import pygame
+from player import Player
 from constants import SCREEN_WIDTH,SCREEN_HEIGHT 
 from logger import log_state
 
@@ -17,11 +18,16 @@ def main():
 
     dt = 0.0
 
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
     # Game loop
     while True:
         log_state()
         screen.fill('black')  # Clear the screen with black before drawing each frame
+        player.draw(screen)     # Draw the player on the screen
         pygame.display.flip()  # Update the full display surface to the screen
+
+
         for event in pygame.event.get():
 
 
