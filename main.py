@@ -11,9 +11,13 @@ def main():
 
     # Initialize all imported pygame modules
     pygame.init()
-
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    clock = pygame.time.Clock()
+
+    dt = 0.0
+
+    # Game loop
     while True:
         log_state()
         screen.fill('black')  # Clear the screen with black before drawing each frame
@@ -25,6 +29,10 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return
+
+        dt = clock.tick(60) / 1000.0  # Limit to 60 FPS and get delta time in seconds
+        # print(f"Delta time for this frame: {dt}")
+
 
 if __name__ == "__main__":
     main()
