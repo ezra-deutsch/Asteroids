@@ -1,5 +1,7 @@
 import pygame
 from player import Player
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 from constants import SCREEN_WIDTH,SCREEN_HEIGHT 
 from logger import log_state
 
@@ -18,27 +20,31 @@ def main():
 
     dt = 0.0
 
-    # Create sprite groups for updatable and drawable objects
+    # Create sprite groups for updatable and drawable playable objects
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     Player.containers = (updatable, drawable)
 
+    # Create sprite groups for updatable and drawable asteroids objects
+    asteroids = pygame.sprite.Group()
+    Asteroid.containers = (asteroids, updatable, drawable)
+
+    AsteroidField.containers = (updatable,) 
+    asteroidfield = AsteroidField()
+    
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     # Game loop
     while True:
         log_state()
         screen.fill('black')  # Clear the screen with black before drawing each frame
-        drawable.draw(screen)     # Draw all drawable objects on the screen
-        updatable.update(dt)  # Update the player's state based on input and delta time
-
-
+        for obj in updatable:
+            obj.update(dt)  # Update the player's state based on input and delta time
+        for obj in drawable:
+            obj.draw(screen)     # Draw all drawable objects on the screen
         pygame.display.flip()  # Update the full display surface to the screen
 
-
         for event in pygame.event.get():
-
-
             pass
             if event.type == pygame.QUIT:
                 pygame.quit()
