@@ -25,6 +25,9 @@ def main():
         log_state()
         screen.fill('black')  # Clear the screen with black before drawing each frame
         player.draw(screen)     # Draw the player on the screen
+        player.update(dt)  # Update the player's state based on input and delta time
+
+
         pygame.display.flip()  # Update the full display surface to the screen
 
 
