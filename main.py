@@ -1,9 +1,11 @@
+import sys
 import pygame
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 from constants import SCREEN_WIDTH,SCREEN_HEIGHT 
-from logger import log_state
+from logger import log_state,log_event
+
 
 
 
@@ -38,10 +40,19 @@ def main():
     while True:
         log_state()
         screen.fill('black')  # Clear the screen with black before drawing each frame
+
         for obj in updatable:
             obj.update(dt)  # Update the player's state based on input and delta time
+
         for obj in drawable:
             obj.draw(screen)     # Draw all drawable objects on the screen
+
+        for obj in asteroids:
+            if obj.collides_with(player):
+                log_event("player_hit")
+                print("Game Over!")
+                sys.exit()
+        
         pygame.display.flip()  # Update the full display surface to the screen
 
         for event in pygame.event.get():
