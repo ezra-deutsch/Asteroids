@@ -52,11 +52,21 @@ def main():
         for obj in drawable:
             obj.draw(screen)     # Draw all drawable objects on the screen
 
+        # Collision detection between player and asteroids
         for obj in asteroids:
             if obj.collides_with(player):
                 log_event("player_hit")
                 print("Game Over!")
                 sys.exit()
+
+        # Collision detection between shots and asteroids
+        for shot in shots:
+            for asteroid in asteroids:
+                if asteroid.collides_with(shot):
+                    log_event("asteroid_shot")
+                    asteroid.kill()
+                    shot.kill()
+        
         
         pygame.display.flip()  # Update the full display surface to the screen
 
